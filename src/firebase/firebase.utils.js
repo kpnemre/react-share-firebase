@@ -13,8 +13,30 @@ const devConfig = {
 };
 
 
+const prodConfig = {};
 
-
-
+const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
 
 // firebase.initializeApp(config);
+
+class Firebase {
+  constructor() {
+    firebase.initializeApp(config);
+    // console.log(firebase);
+    this.firebaseAuth= firebase.auth();
+    // console.log(this.firebaseAuth);
+  }
+
+  register (email,password){
+      this.firebaseAuth.createUserWithEmailAndPassword(email,password)
+  }
+  // sign in/up with google GoogleAuthProvider
+  useGoogleProvider() {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({ prompt: "select_account" });
+    this.firebaseAuth.signInWithPopup(googleProvider);
+  }}
+
+  
+
+export default new Firebase();
