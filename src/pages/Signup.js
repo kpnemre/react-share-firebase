@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 const styles = makeStyles({
   wrapper: {
-    marginTop: "5rem",
+    marginTop: "10rem",
   },
 });
 
@@ -22,7 +22,7 @@ function Signup() {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  console.log(formik);
+  // console.log(formik);
   return (
     <Container maxWidth="sm" className={signupStyles.wrapper}>
       <form onSubmit={formik.handleSubmit}>

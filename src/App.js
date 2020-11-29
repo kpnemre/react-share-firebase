@@ -1,6 +1,10 @@
 import Signup from './pages/Signup';
+import Navbar from './components/Navbar'
 
 function App() {
+  
+    console.log(process.env);
+
   return (
     <div className="App">
       {/* 
@@ -9,6 +13,7 @@ function App() {
       // signup
       // forgot password
       */}
+      <Navbar />
       <Signup />
     </div>
   );
