@@ -68,7 +68,8 @@ const handleSignout = useCallback(()=>{
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
-          {auth && (
+          {/* {auth && ( */}
+          {currentUser && (
             <div>
               <IconButton
                 aria-label="account of current user"

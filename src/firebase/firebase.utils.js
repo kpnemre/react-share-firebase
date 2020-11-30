@@ -27,8 +27,16 @@ class Firebase {
     // console.log(this.firebaseAuth);
   }
 
-  register (email,password){
-      this.firebaseAuth.createUserWithEmailAndPassword(email,password)
+ async register (displayName,email,password){
+  try {
+    await this.firebaseAuth.createUserWithEmailAndPassword(email,password);//async çalışıyor
+
+    this.firebaseAuth.currentUser.updateProfile({displayName});
+   }
+   catch (err){
+console.log('firebase error', err);
+   }
+
   }
   // sign in/up with google GoogleAuthProvider
   useGoogleProvider() {
@@ -38,6 +46,9 @@ class Firebase {
   }
   signOut () {
     this.firebaseAuth.signOut();
+  }
+  signin (email,password) {
+    this.firebaseAuth.signInWithEmailAndPassword(email,password);
   }
 
 }
