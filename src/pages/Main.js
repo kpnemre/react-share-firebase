@@ -46,6 +46,7 @@ function Main(props) {
 
               userName={`${capitalize(user?.title)} ${user?.firstName} ${user?.lastName}` }
               userEmail={user?.email}
+              id={user?.id}
             ></MediaCard>
             </Grid>
           );
