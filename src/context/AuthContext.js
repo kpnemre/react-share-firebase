@@ -15,7 +15,7 @@ function AuthContextProvider(props) {
   }, []);
 
   return (
-    <FirebaseAuthContext.Provider value={currentUser}>
+    <FirebaseAuthContext.Provider value={{currentUser}}>
       {props.children}
     </FirebaseAuthContext.Provider>
   );

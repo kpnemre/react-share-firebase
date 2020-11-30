@@ -1,18 +1,19 @@
-import React, {useContext} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
+import React, { useContext, useCallback } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import {FirebaseAuthContext} from '../context/AuthContext';
+import { FirebaseAuthContext } from "../context/AuthContext";
+import firebase from '../firebase/firebase.utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
-  
+  const { currentUser } = useContext(FirebaseAuthContext);
+  // const { currentUser:{displayName} } = useContext(FirebaseAuthContext);
+  console.log(currentUser);
+
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,16 +45,24 @@ export default function Navbar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  // const handleClose = () => {
+  const handleClose =  ()=> {
     setAnchorEl(null);
   };
-
+const handleSignout = useCallback(()=>{
+  firebase.signOut();
+})
+// hafızada tutar. 
   return (
     <div className={classes.root}>
-
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
@@ -65,26 +77,27 @@ export default function Navbar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                  DisplayName
+                {currentUser?.displayName}
                 <AccountCircle />
               </IconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
               </Menu>
             </div>
           )}
