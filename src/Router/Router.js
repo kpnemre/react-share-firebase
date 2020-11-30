@@ -1,5 +1,6 @@
 import Signup from "../pages/Signup";
 import Signin from "../pages/Signin";
+import Main from "../pages/Main";
 import Navbar from "../components/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -11,8 +12,9 @@ function AppRouter() {
       <Navbar />
 
       <Switch>
-        <Route path="/login" component={Signup}  />
-        <Route path="/signin" component={Signin}  />
+        <Route exact path="/login" component={Signup}  />
+        <Route exact path="/signin" component={Signin}  />
+        <Route path="/" component={Main}  />
       </Switch>
     </Router>
   );
