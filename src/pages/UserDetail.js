@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchData } from "../helper/FetchData";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, capitalize } from "@material-ui/core";
+import { Container, capitalize,CircularProgress } from "@material-ui/core";
 import MediaCard from "../components/MediaCard";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -33,7 +33,11 @@ function UserDetail() {
   return (
     <Container className={mainStyles.wrapper} maxWidth="sm">
       {/* {JSON.stringify(userDetail)} */}
-      <img src={userDetail?.picture} alt="user" />
+      {!userDetail? (<CircularProgress />) : 
+      
+(      
+<React.Fragment>
+<img src={userDetail?.picture} alt="user" />
       <Typography variant="h4">{userDetail?.firstName}</Typography>
       <Typography variant="h4">{userDetail?.lastName}</Typography>
       {userDetail?.registerDate && (
@@ -45,7 +49,9 @@ function UserDetail() {
         </Typography>
       )}
       <Typography variant="h4">{userDetail?.phone}</Typography>
-
+      </React.Fragment>
+      )
+    }
     </Container>
   );
 }

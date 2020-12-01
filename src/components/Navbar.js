@@ -11,6 +11,7 @@ import Switch from "@material-ui/core/Switch";
 // import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Link from "@material-ui/core/Link";
 
 import { FirebaseAuthContext } from "../context/AuthContext";
 import firebase from '../firebase/firebase.utils';
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const { currentUser } = useContext(FirebaseAuthContext);
   // const { currentUser:{displayName} } = useContext(FirebaseAuthContext);
   // console.log(currentUser);
@@ -102,6 +103,27 @@ const handleSignout = useCallback(()=>{
               </Menu>
             </div>
           )}
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          >
+            Home
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+          >
+            Sign in
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/register";
+            }}
+          >
+            Sign up
+          </MenuItem>
         </Toolbar>
       </AppBar>
     </div>

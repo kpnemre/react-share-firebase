@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container,capitalize } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  capitalize,
+  CircularProgress,
+} from "@material-ui/core";
 import axios from "axios";
 import MediaCard from "../components/MediaCard";
-import Grid from "@material-ui/core/Grid";
 
 const stylesFunc = makeStyles((theme) => ({
   wrapper: {
-    marginTop: "10rem",
-    height: "calc(100vh - 19.0625rem)",
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    marginTop: "5rem",
     textAlign: "center",
-  }
+  },
+  avatar: {
+    margin: "1rem auto",
+    backgroundColor: theme.palette.secondary.main,
+  },
 }));
 
 const { REACT_APP_API_BASE_URL, REACT_APP_API_TOKEN } = process.env;
@@ -31,14 +41,20 @@ function Main(props) {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(userList);
+  // console.log(userList);
+
+
   return (
-    <Container className={mainStyles.wrapper} maxWidth="sm">
-      <Grid container spacing={2}>
+    <Container className={mainStyles.wrapper} >
+        {!userList ? (
+        //TODO: center loading icon
+        <CircularProgress />
+      ) : (
+      <Grid container spacing={1}>
         {userList?.map((user) => {
           return (
              
-              <Grid item xs={6} sm={4} key={user?.id} >
+              <Grid item sm={4} xs={6}  key={user?.id} >
             <MediaCard
             //   key={user?.id}
               className={mainStyles.wrapper}
@@ -52,6 +68,7 @@ function Main(props) {
           );
         })}
       </Grid>
+          )}
     </Container>
   );
 }

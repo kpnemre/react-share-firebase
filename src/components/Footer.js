@@ -27,12 +27,13 @@ const useStyles = makeStyles((theme) => ({
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
+    textAlign:'center'
   },
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    // marginTop: 'auto',
+    // backgroundColor:
+    //   theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
 
@@ -40,7 +41,7 @@ export default function StickyFooter() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div id="footer" className = {classes.main}>
       <CssBaseline />
       <Container component="main" className={classes.main} maxWidth="sm">
 

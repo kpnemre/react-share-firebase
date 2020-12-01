@@ -1,25 +1,40 @@
 import React from "react";
-import { Button, TextField, Grid, Container } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Grid,
+  Container,
+  Avatar,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import firebase from "../firebase/firebase.utils";
-import * as Yup from 'yup';
+import * as Yup from "yup";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-const signUpValidationSchema  =Yup.object().shape({
-
-  displayName: Yup.string().required('Display Name is Required'),
-  email: Yup.string().email('Invalid email').required('Email is Required'),
+const signUpValidationSchema = Yup.object().shape({
+  displayName: Yup.string().required("Display Name is Required"),
+  email: Yup.string().email("Invalid email").required("Email is Required"),
   password: Yup.string()
-  .required('No password provided.') 
-  .min(8, 'Password is too short - should be 8 chars minimum.')
+    .required("No password provided.")
+    .min(8, "Password is too short - should be 8 chars minimum."),
+});
 
-})
-
-const stylesFunc = makeStyles({
+const stylesFunc = makeStyles((theme) => ({
   wrapper: {
     marginTop: "10rem",
+    height: "calc(100vh - 19.0625rem)",
+    textAlign: "center",
   },
-});
+  avatar: {
+    margin: "1rem auto",
+    backgroundColor: theme.palette.primary.main,
+  },
+  signUp: {
+    margin: "1rem",
+  },
+}));
 
 function Signup() {
   const formik = useFormik({
@@ -28,7 +43,7 @@ function Signup() {
       email: "",
       password: "",
     },
-    validationSchema:signUpValidationSchema,
+    validationSchema: signUpValidationSchema,
 
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
@@ -43,6 +58,12 @@ function Signup() {
 
   return (
     <Container className={signupStyles.wrapper} maxWidth="sm">
+      <Avatar className={signupStyles.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography className={signupStyles.signUp} variant="h4">
+        Sign Up
+      </Typography>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -55,7 +76,6 @@ function Signup() {
               onChange={formik.handleChange}
               error={formik.errors.displayName}
               helperText={formik.errors.displayName}
-            
             />
           </Grid>
           <Grid item xs={12}>
@@ -81,7 +101,6 @@ function Signup() {
               onChange={formik.handleChange}
               error={formik.errors.password}
               helperText={formik.errors.password}
-              
             />
           </Grid>
           <Grid item xs={12}>

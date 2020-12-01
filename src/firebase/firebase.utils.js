@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import { customErrorHandler } from "../helper/FetchData";
 //firestore
 
 const devConfig = {
@@ -47,9 +48,19 @@ console.log('firebase error', err);
   signOut () {
     this.firebaseAuth.signOut();
   }
-  signin (email,password) {
-    this.firebaseAuth.signInWithEmailAndPassword(email,password);
+  // signin (email,password) {
+  //   this.firebaseAuth.signInWithEmailAndPassword(email,password);
+  // }
+
+  async signIn(email, password) {
+    try {
+     let res=await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+
+    } catch (error) {
+      return customErrorHandler(error)
+    }
   }
+
 
 }
 

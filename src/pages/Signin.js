@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Button,
   TextField,
@@ -21,8 +21,11 @@ const stylesFunc = makeStyles((theme) => ({
   },
   avatar: {
     margin: "1rem auto",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
+  signIn: {
+    margin: "1rem",
+  }
 }));
 
 const signInValidationSchema = Yup.object().shape({
@@ -33,6 +36,7 @@ const signInValidationSchema = Yup.object().shape({
 });
 
 function Signin() {
+  const [loginError,setLoginError]=useState(null)
   const signinStyles = stylesFunc();
 
   const handleGoogleButtonClick = () => {
@@ -40,14 +44,17 @@ function Signin() {
   };
   const handleFormSubmit = (values) => {
     //   alert(JSON.stringify(values, null, 2));
-    firebase.signin(values.email, values.password);
+    // firebase.signin(values.email, values.password);
+        firebase.signIn(values.email, values.password).then(res=>{
+      res? setLoginError(res):setLoginError(null)
+      });
   };
   return (
     <Container className={signinStyles.wrapper} maxWidth="sm">
       <Avatar className={signinStyles.avatar}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography variant="h4" >
+      <Typography className={signinStyles.signIn} variant="h4">
         Sign In
       </Typography>
       <Formik
@@ -119,6 +126,7 @@ function Signin() {
                 </Button>
               </Grid>
             </Grid>
+            <p style={{textAlign:"center",color:"red"}}><small>{loginError}</small></p>
           </form>
         )}
       </Formik>
