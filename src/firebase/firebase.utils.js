@@ -61,6 +61,15 @@ console.log('firebase error', err);
     }
   }
 
+  async forgotPassword(email) {
+    try {
+     await this.firebaseAuth.sendPasswordResetEmail(email);
+
+    } catch (error) {
+      return customErrorHandler(error)
+    }
+  }
+
 
 }
 
