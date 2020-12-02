@@ -1,10 +1,12 @@
 import React, { useContext, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import HomeIcon from "@material-ui/icons/Home";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 // import Switch from "@material-ui/core/Switch";
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -32,7 +34,7 @@ export default function Navbar(props) {
   const { currentUser } = useContext(FirebaseAuthContext);
   // const { currentUser:{displayName} } = useContext(FirebaseAuthContext);
   // console.log(currentUser);
-
+  const history = useHistory();
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -50,6 +52,9 @@ export default function Navbar(props) {
   const handleClose =  ()=> {
     setAnchorEl(null);
   };
+  const handleHomeClick = useCallback(() => {
+    history.push(`/`);
+  }, []);
 const handleSignout = useCallback(()=>{
   firebase.signOut();
 })
@@ -58,13 +63,14 @@ const handleSignout = useCallback(()=>{
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+        <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={handleHomeClick}
           >
-            <MenuIcon />
+             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             React Share

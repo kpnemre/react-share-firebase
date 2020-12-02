@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import { fetchData } from "../helper/FetchData";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, capitalize,CircularProgress } from "@material-ui/core";
-import MediaCard from "../components/MediaCard";
-import Grid from "@material-ui/core/Grid";
+import { Container, CircularProgress } from "@material-ui/core";
+
 import Typography from "@material-ui/core/Typography";
 import { format as formatDate, parseISO } from 'date-fns';
+
+
 
 const stylesFunc = makeStyles((theme) => ({
   wrapper: {

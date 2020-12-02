@@ -16,7 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 const stylesFunc = makeStyles((theme) => ({
   wrapper: {
     marginTop: "10rem",
-    height: "calc(100vh - 19.0625rem)",
+    minHeight: "calc(100vh - 19.0625rem)",
     textAlign: "center",
   },
   avatar: {
@@ -123,9 +123,12 @@ function Signin() {
                 >
                   SignIn with Google
                 </Button>
+              
               </Grid>
             </Grid>
             <p style={{textAlign:"center",color:"red"}}><small>{loginError}</small></p>
+            {/* todo
+            add register forgot passwordlink */}
           </form>
         )}
       </Formik>

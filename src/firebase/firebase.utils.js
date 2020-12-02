@@ -54,7 +54,7 @@ console.log('firebase error', err);
 
   async signIn(email, password) {
     try {
-     let res=await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+     await this.firebaseAuth.signInWithEmailAndPassword(email, password);
 
     } catch (error) {
       return customErrorHandler(error)
@@ -64,7 +64,7 @@ console.log('firebase error', err);
   async forgotPassword(email) {
     try {
      await this.firebaseAuth.sendPasswordResetEmail(email);
-
+window.location.href="/";
     } catch (error) {
       return customErrorHandler(error)
     }
