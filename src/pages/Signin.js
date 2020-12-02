@@ -96,7 +96,6 @@ function Signin() {
                   variant="outlined"
                   type="password"
                   fullWidth
-                  type="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -122,7 +121,7 @@ function Signin() {
                   fullWidth
                   onClick={handleGoogleButtonClick}
                 >
-                  SignUp with Google
+                  SignIn with Google
                 </Button>
               </Grid>
             </Grid>

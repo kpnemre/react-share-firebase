@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const signUpValidationSchema = Yup.object().shape({
-  displayName: Yup.string().required("Display Name is Required"),
+  displayName: Yup.string().required("Display Name is Required").min(4, " too short - should be 4 chars minimum."),
   email: Yup.string().email("Invalid email").required("Email is Required"),
   password: Yup.string()
     .required("No password provided.")
@@ -72,10 +72,13 @@ function Signup() {
               label="Display Name"
               variant="outlined"
               fullWidth
-              value={formik.values.displayName}
-              onChange={formik.handleChange}
-              error={formik.errors.displayName}
-              helperText={formik.errors.displayName}
+              // value={formik.values.displayName}
+              // onChange={formik.handleChange}
+              // error={formik.errors.displayName}
+              // helperText={formik.errors.displayName}
+              {...formik.getFieldProps('displayName')}
+              error={formik.touched.displayName && formik.errors.displayName}
+              helperText={formik.touched.displayName && formik.errors.displayName}
             />
           </Grid>
           <Grid item xs={12}>

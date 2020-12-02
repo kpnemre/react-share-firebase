@@ -6,12 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
+// import Switch from "@material-ui/core/Switch";
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Link from "@material-ui/core/Link";
+// import Link from "@material-ui/core/Link";
 
 import { FirebaseAuthContext } from "../context/AuthContext";
 import firebase from '../firebase/firebase.utils';
@@ -38,9 +38,9 @@ export default function Navbar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,10 +67,10 @@ const handleSignout = useCallback(()=>{
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            React Share
           </Typography>
           {/* {auth && ( */}
-          {currentUser && (
+          {currentUser? (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -102,8 +102,9 @@ const handleSignout = useCallback(()=>{
                 <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
               </Menu>
             </div>
-          )}
-          <MenuItem
+          ):(
+            <>
+             <MenuItem
             onClick={() => {
               window.location.href = "/";
             }}
@@ -124,6 +125,9 @@ const handleSignout = useCallback(()=>{
           >
             Sign up
           </MenuItem>
+            </>
+          )}
+         
         </Toolbar>
       </AppBar>
     </div>
