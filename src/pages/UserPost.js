@@ -65,6 +65,7 @@ function UserPost() {
             <UserPostCard
               id={post.id}
               userInitial={firstName[0]}
+              name={firstName + lastName}
               // title=
               subheader={formatDateFunc(post.publishDate)}
               imgSrc={post.image}

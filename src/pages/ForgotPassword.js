@@ -99,7 +99,7 @@ function ForgotPassword() {
                 </Button>
               </Grid>
             </Grid>
-            {/* <p style={{textAlign:"center",color:"red"}}><small>{loginError}</small></p> */}
+            <p style={{textAlign:"center",color:"red"}}><small>{loginError}</small></p>
           </form>
         )}
       </Formik>

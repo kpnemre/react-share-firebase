@@ -46,6 +46,7 @@ export default function UserPostCard({
   imgSrc,
   imgTitle,
   description,
+  name
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -67,7 +68,7 @@ export default function UserPostCard({
             <MoreVertIcon />
           </IconButton>
         }
-        title={title}
+        title={name}
         subheader={subheader}
       />
       <CardMedia className={classes.media} image={imgSrc} title={imgTitle} />
