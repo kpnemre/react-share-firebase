@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useState} from "react";
+import { fetchData } from "../helper/FetchData";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -12,9 +13,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+// import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 export default function UserPostCard({
   userInitial,
   subheader,
@@ -46,12 +51,24 @@ export default function UserPostCard({
   imgSrc,
   imgTitle,
   description,
-  name
+  name,
+  likes,
+  email,
+  id,
 }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [comments, setComments] = useState();
 
-  const handleExpandClick = () => {
+  const getComments = (postId) => {
+    fetchData(`/post/${postId}/comment`)
+      .then((res) => setComments(res?.data))
+      .catch()
+      .finally();
+  };
+// console.log(comments)
+  const handleExpandClick = (postId) => {
+    if (expanded) getComments(postId);
     setExpanded(!expanded);
   };
 
@@ -81,14 +98,15 @@ export default function UserPostCard({
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {`${likes} Likes`}
+        </Typography>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={handleExpandClick}
+          // onClick={handleExpandClick}
+          onClick={() => handleExpandClick(id)}
           aria-expanded={expanded}
           aria-label="show more"
         >
@@ -96,10 +114,24 @@ export default function UserPostCard({
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          {/* TODO
-MAP COMMENTS */}
+      <CardContent>
+          {!comments ? (
+            <CircularProgress />
+          ) : comments.length ? (
+            comments.map((comment) => {
+              return (
+                <React.Fragment key={comment.id}>
+                  <Typography variant="body2">
+                    {comment.owner.firstName}
+                  </Typography>
+                  <Typography paragraph>{comment.message}</Typography>
+                  <hr />
+                </React.Fragment>
+              );
+            })
+          ) : (
+            "No comment"
+          )}
         </CardContent>
       </Collapse>
     </Card>

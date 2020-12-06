@@ -3,18 +3,19 @@ import { useParams } from "react-router-dom";
 import { fetchData } from "../helper/FetchData";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, CircularProgress } from "@material-ui/core";
+import { Container, CircularProgress, Grid } from "@material-ui/core";
 
 import Typography from "@material-ui/core/Typography";
 import { format as formatDate, parseISO } from "date-fns";
 import UserPostCard from "../components/UserPostCard";
-import {formatDateFunc} from '../helper/FormatDate';
+import { formatDateFunc } from "../helper/FormatDate";
 
 const stylesFunc = makeStyles((theme) => ({
   wrapper: {
     marginTop: "10rem",
     minHeight: "calc(100vh - 19.0625rem)",
     textAlign: "center",
+    maxWidth: "60rem",
   },
   avatar: {
     margin: "1rem auto",
@@ -28,6 +29,7 @@ function UserPost() {
   console.log(userPost);
   const mainStyles = stylesFunc();
 
+  // TODO: fill in catch finally
   useEffect(() => {
     // console.log(fetchData(`/user/${id}`))
     fetchData(`/user/${id}/post`)
@@ -36,14 +38,16 @@ function UserPost() {
       .finally();
   }, [id]);
   // id her değiştiğinde useEffect çalışacak
+
+
   return (
     <Container className={mainStyles.wrapper} maxWidth="sm">
       {/* {JSON.stringify(UserPost)} */}
       {!userPost ? (
         <CircularProgress />
       ) : (
-        <>
-        {/* {"owner":{
+        <Grid container spacing={3}>
+          {/* {"owner":{
           "id":"1OuR3CWOEsfISTpFxsG7",
           "picture":"https://randomuser.me/api/portraits/men/66.jpg",
           "lastName":"Vasquez",
@@ -59,22 +63,28 @@ function UserPost() {
         "likes":80}, */}
 
           {/* {JSON.stringify(userPost)} */}
+
           {userPost.map((post) => {
-            const { firstName, lastName } = post.owner;
-            return(
-            <UserPostCard
-              id={post.id}
-              userInitial={firstName[0]}
-              name={firstName + lastName}
-              // title=
-              subheader={formatDateFunc(post.publishDate)}
-              imgSrc={post.image}
-              // imgTitle=
-              description={post.text}
-              likes={post.likes}
-            />)
+            const { firstName, lastName, email } = post.owner;
+            return (
+              <Grid item sm={4} xs={6} key={userPost?.id}>
+                <UserPostCard
+                  id={post.id}
+                  userInitial={firstName[0]}
+                  name={firstName + lastName}
+                  // title=
+                  subheader={formatDateFunc(post.publishDate)}
+                  imgSrc={post.image}
+                  // imgTitle=
+                  description={post.text}
+                  likes={post.likes}
+                  email={email}
+                
+                />
+              </Grid>
+            );
           })}
-        </>
+        </Grid>
       )}
     </Container>
   );
