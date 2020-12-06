@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -25,27 +25,23 @@ const stylesFunc = makeStyles((theme) => ({
   },
   forgotPassword: {
     margin: "1rem",
-  }
+  },
 }));
 
 const forgotPasswordValidationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
-
 });
 
 function ForgotPassword() {
-
-
-  const [loginError,setLoginError]=useState(null)
+  const [loginError, setLoginError] = useState(null);
   const forgotPasswordStyles = stylesFunc();
-
 
   const handleFormSubmit = (values) => {
     //   alert(JSON.stringify(values, null, 2));
     // firebase.forgotPassword(values.email, values.password);
-        firebase.forgotPassword(values.email).then(res=>{
-      res? setLoginError(res):setLoginError(null)
-      });
+    firebase.forgotPassword(values.email).then((res) => {
+      res ? setLoginError(res) : setLoginError(null);
+    });
   };
   return (
     <Container className={forgotPasswordStyles.wrapper} maxWidth="sm">
@@ -72,9 +68,8 @@ function ForgotPassword() {
           <form onSubmit={handleSubmit}>
             {/* {JSON.stringify(errors)} */}
             <Grid container spacing={3}>
-     
               <Grid item xs={12}>
-              <TextField
+                <TextField
                   label="Email"
                   variant="outlined"
                   fullWidth
@@ -99,7 +94,9 @@ function ForgotPassword() {
                 </Button>
               </Grid>
             </Grid>
-            <p style={{textAlign:"center",color:"red"}}><small>{loginError}</small></p>
+            <p style={{ textAlign: "center", color: "red" }}>
+              <small>{loginError}</small>
+            </p>
           </form>
         )}
       </Formik>

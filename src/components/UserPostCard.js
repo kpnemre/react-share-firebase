@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { fetchData } from "../helper/FetchData";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -41,9 +41,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 export default function UserPostCard({
   userInitial,
   subheader,
@@ -66,7 +63,7 @@ export default function UserPostCard({
       .catch()
       .finally();
   };
-// console.log(comments)
+  // console.log(comments)
   const handleExpandClick = (postId) => {
     if (expanded) getComments(postId);
     setExpanded(!expanded);
@@ -114,7 +111,7 @@ export default function UserPostCard({
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-      <CardContent>
+        <CardContent>
           {!comments ? (
             <CircularProgress />
           ) : comments.length ? (

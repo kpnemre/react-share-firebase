@@ -13,7 +13,6 @@ const devConfig = {
   appId: process.env.REACT_APP_ID,
 };
 
-
 const prodConfig = {};
 
 const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
@@ -24,20 +23,18 @@ class Firebase {
   constructor() {
     firebase.initializeApp(config);
     // console.log(firebase);
-    this.firebaseAuth= firebase.auth();
+    this.firebaseAuth = firebase.auth();
     // console.log(this.firebaseAuth);
   }
 
- async register (displayName,email,password){
-  try {
-    await this.firebaseAuth.createUserWithEmailAndPassword(email,password);//async çalışıyor
+  async register(displayName, email, password) {
+    try {
+      await this.firebaseAuth.createUserWithEmailAndPassword(email, password); //async çalışıyor
 
-    this.firebaseAuth.currentUser.updateProfile({displayName});
-   }
-   catch (err){
-console.log('firebase error', err);
-   }
-
+      this.firebaseAuth.currentUser.updateProfile({ displayName });
+    } catch (err) {
+      console.log("firebase error", err);
+    }
   }
   // sign in/up with google GoogleAuthProvider
   useGoogleProvider() {
@@ -45,7 +42,7 @@ console.log('firebase error', err);
     googleProvider.setCustomParameters({ prompt: "select_account" });
     this.firebaseAuth.signInWithPopup(googleProvider);
   }
-  signOut () {
+  signOut() {
     this.firebaseAuth.signOut();
   }
   // signin (email,password) {
@@ -54,25 +51,20 @@ console.log('firebase error', err);
 
   async signIn(email, password) {
     try {
-     await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-
+      await this.firebaseAuth.signInWithEmailAndPassword(email, password);
     } catch (error) {
-      return customErrorHandler(error)
+      return customErrorHandler(error);
     }
   }
 
   async forgotPassword(email) {
     try {
-     await this.firebaseAuth.sendPasswordResetEmail(email);
-window.location.href="/";
+      await this.firebaseAuth.sendPasswordResetEmail(email);
+      window.location.href = "/";
     } catch (error) {
-      return customErrorHandler(error)
+      return customErrorHandler(error);
     }
   }
-
-
 }
-
-  
 
 export default new Firebase();

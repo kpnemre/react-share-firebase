@@ -4,7 +4,7 @@ import firebase from "../firebase/firebase.utils";
 export const FirebaseAuthContext = createContext();
 
 function AuthContextProvider(props) {
-//   const [isAuthenticated, setİsAuthenticated] = useState(false);
+  //   const [isAuthenticated, setİsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function AuthContextProvider(props) {
   }, []);
 
   return (
-    <FirebaseAuthContext.Provider value={{currentUser}}>
+    <FirebaseAuthContext.Provider value={{ currentUser }}>
       {props.children}
     </FirebaseAuthContext.Provider>
   );

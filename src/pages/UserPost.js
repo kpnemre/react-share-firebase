@@ -39,7 +39,6 @@ function UserPost() {
   }, [id]);
   // id her değiştiğinde useEffect çalışacak
 
-
   return (
     <Container className={mainStyles.wrapper} maxWidth="sm">
       {/* {JSON.stringify(UserPost)} */}
@@ -79,7 +78,6 @@ function UserPost() {
                   description={post.text}
                   likes={post.likes}
                   email={email}
-                
                 />
               </Grid>
             );
