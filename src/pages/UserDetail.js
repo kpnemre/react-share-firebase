@@ -16,12 +16,16 @@ const stylesFunc = makeStyles((theme) => ({
     height: "calc(100vh - 19.0625rem)",
     textAlign: "center",
   },
+  circular: {
+    margin: "auto",
+  },
 }));
 
 function UserDetail() {
   const { id } = useParams();
   const [userDetail, setUserDetail] = useState();
   const mainStyles = stylesFunc();
+  const styles = stylesFunc();
 
   useEffect(() => {
     // console.log(fetchData(`/user/${id}`))
@@ -34,10 +38,11 @@ function UserDetail() {
   return (
     <Container className={mainStyles.wrapper} maxWidth="sm">
       {/* {JSON.stringify(userDetail)} */}
-      {!userDetail? (<CircularProgress />) : 
+      {!userDetail? (<CircularProgress className={styles.circular}/>) : 
       
 (      
 <React.Fragment>
+  
 <img src={userDetail?.picture} alt="user" />
       <Typography variant="h4">{userDetail?.firstName}</Typography>
       <Typography variant="h4">{userDetail?.lastName}</Typography>

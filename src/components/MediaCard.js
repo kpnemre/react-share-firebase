@@ -46,7 +46,7 @@ export default function MediaCard({ id, userImage, userName, userEmail }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions onClick={() => history.push(`/user/${id}`)}>
+      <CardActions >
         <Button
           onClick={() => history.push(`/user/${id}`)}
           size="small"

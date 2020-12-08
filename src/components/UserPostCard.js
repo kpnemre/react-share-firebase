@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { fetchData } from "../helper/FetchData";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -11,12 +10,13 @@ import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { CircularProgress } from "@material-ui/core";
+import { fetchData } from "../helper/FetchData";
+// import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,29 +44,28 @@ const useStyles = makeStyles((theme) => ({
 export default function UserPostCard({
   userInitial,
   subheader,
-  title,
+
   imgSrc,
   imgTitle,
   description,
   name,
   likes,
-  email,
+
   id,
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [comments, setComments] = useState();
 
+  const handleExpandClick = (postId) => {
+    if (!expanded) getComments(postId);
+    setExpanded(!expanded);
+  };
   const getComments = (postId) => {
     fetchData(`/post/${postId}/comment`)
       .then((res) => setComments(res?.data))
       .catch()
       .finally();
-  };
-  // console.log(comments)
-  const handleExpandClick = (postId) => {
-    if (expanded) getComments(postId);
-    setExpanded(!expanded);
   };
 
   return (
@@ -114,13 +113,25 @@ export default function UserPostCard({
         <CardContent>
           {!comments ? (
             <CircularProgress />
-          ) : comments.length ? (
+          ) : comments?.length ? (
             comments.map((comment) => {
               return (
+                //   <Typography paragraph key={comment.id}>
+                //   {JSON.stringify(comment.message)}
+                // </Typography>
                 <React.Fragment key={comment.id}>
-                  <Typography variant="body2">
-                    {comment.owner.firstName}
-                  </Typography>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classes.avatar} src= {comment.owner.picture}>
+                        
+                      </Avatar>
+                    }
+                
+                    title={`${comment.owner.title} ${comment.owner.firstName} ${comment.owner.lastName}`}
+                  />
+                  {/* <Typography variant="body2">
+                    {JSON.stringify(comment.owner.picture) }
+                  </Typography> */}
                   <Typography paragraph>{comment.message}</Typography>
                   <hr />
                 </React.Fragment>
@@ -134,3 +145,5 @@ export default function UserPostCard({
     </Card>
   );
 }
+
+// {"owner":{"id":"nye7EW8urdTCL9IhuIjL","title":"mr","lastName":"Rocha","email":"mem.rocha@example.com","firstName":"Mem","picture":"https://randomuser.me/api/portraits/men/59.jpg"},"id":"pXGcBWaaEZw3GyNEDovz","message":"😀😀🥰😁 Excellent image","publishDate":"2020-03-08T04:21:29.326Z"}
