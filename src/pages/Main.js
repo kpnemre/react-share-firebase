@@ -14,8 +14,9 @@ const stylesFunc = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    marginTop: "5rem",
+    // marginTop: "5rem",
     textAlign: "center",
+    backgroundColor:"#d9ecf2",
   },
   avatar: {
     margin: "1rem auto",
@@ -55,11 +56,12 @@ function Main(props) {
         //TODO: center loading icon
         <CircularProgress className={mainStyles.circular}/>
       ) : (
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {userList?.map((user) => {
           return (
              
-              <Grid item sm={4} xs={6}  key={user?.id} >
+              // <Grid item sm={4} xs={6}  key={user?.id} >
+              <Grid item lg={3} md={4} sm={6} xs={12}  key={user?.id}>
             <MediaCard
             //   key={user?.id}
               className={mainStyles.wrapper}

@@ -40,9 +40,9 @@ export default function StickyFooter() {
   return (
     <div id="footer" className={classes.main}>
       <CssBaseline />
-      <Container component="main" className={classes.main} maxWidth="sm">
+      {/* <Container component="main" className={classes.main} maxWidth="sm">
         <Typography variant="body1">Sticky footer placeholder.</Typography>
-      </Container>
+      </Container> */}
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">

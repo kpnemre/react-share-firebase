@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../helper/FetchData";
-
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, CircularProgress } from "@material-ui/core";
-
+import { formatDateFunc } from "../helper/FormatDate";
 import Typography from "@material-ui/core/Typography";
 import { format as formatDate, parseISO } from 'date-fns';
 
 
 
 const stylesFunc = makeStyles((theme) => ({
-  wrapper: {
-    marginTop: "10rem",
+  root: {
+    display: 'flex',
+    marginTop: '2rem',
     height: "calc(100vh - 19.0625rem)",
-    textAlign: "center",
+    backgroundColor: theme.palette.action.selected,
+    width: '95%',
+    maxWidth: 850,
+    margin: 'auto',
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  cover: {
+    width: '80%',
+    maxWidth: 600,
+    height: '100%',
   },
   circular: {
     margin: "auto",
@@ -36,29 +55,32 @@ function UserDetail() {
   }, [id]);
   // id her değiştiğinde useEffect çalışacak
   return (
-    <Container className={mainStyles.wrapper} maxWidth="sm">
-      {/* {JSON.stringify(userDetail)} */}
-      {!userDetail? (<CircularProgress className={styles.circular}/>) : 
-      
-(      
-<React.Fragment>
-  
-<img src={userDetail?.picture} alt="user" />
-      <Typography variant="h4">{userDetail?.firstName}</Typography>
-      <Typography variant="h4">{userDetail?.lastName}</Typography>
-      {userDetail?.registerDate && (
-        <Typography variant="h4">
-          {
-            //TODO: move to helper
-          }
-          {formatDate(parseISO(userDetail.registerDate), "MMM/dd/yy")}
-        </Typography>
-      )}
-      <Typography variant="h4">{userDetail?.phone}</Typography>
-      </React.Fragment>
-      )
-    }
-    </Container>
+    <Card className={mainStyles.root}>
+    <div className={mainStyles.details}>
+      <CardContent className={mainStyles.content}>
+        {!userDetail ? (
+          <CircularProgress />
+        ) : (
+            <>
+              <Typography component="h5" variant="h5">{userDetail?.firstName} {userDetail?.lastName}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {userDetail?.location?.country}, {userDetail?.location?.city}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">{userDetail?.phone}</Typography>
+              {userDetail?.registerDate && (
+                <Typography variant="subtitle1" color="textSecondary">
+                  {formatDateFunc(userDetail.registerDate)}
+                </Typography>
+              )}
+            </>
+          )}
+      </CardContent>
+    </div>
+    <CardMedia
+      className={mainStyles.cover}
+      image={userDetail?.picture}
+      title={userDetail?.firstName}
+    />
+  </Card>
   );
 }
 
